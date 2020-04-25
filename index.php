@@ -19,64 +19,137 @@
             transform: translate(-50%, -50%);
         }
     </style>
+    <!-- We could have also use element.style.property to add values to the properties of body and container.
+        In my PC it wasn't working for some reason.
+    -->
     </head>
     <body>
-    <form action="">
-        <div class="container">
-            <div class="row">
-                <div class="col s3" id="o1container">
-                    <input type="text" name="num1" placeholder="Number 1" style="color: white;">
+        <form action="">
+            <div class="container" id="container">
+                <div class="row">
+                    <div class="col s3" id="o1container">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s3" id="o2container">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s2" id="opcontainer">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s4" id="resultcontainer">
+                        <p style="color: white; font-size: 20px">
+                            <?php
+                                if(isset($_GET['add'])){
+                                    $num1 = $_GET['num1'];
+                                    $num2 = $_GET['num2'];
+                                    echo $num1 + $num2;
+                                }
+                                else if(isset($_GET['subtract'])){
+                                    $num1 = $_GET['num1'];
+                                    $num2 = $_GET['num2'];
+                                    echo $num1 - $num2;
+                                }
+                                else if(isset($_GET['multiply'])){
+                                    $num1 = $_GET['num1'];
+                                    $num2 = $_GET['num2'];
+                                    echo $num1 * $num2;
+                                }
+                                else if(isset($_GET['divide'])){
+                                    $num1 = $_GET['num1'];
+                                    $num2 = $_GET['num2'];
+                                    echo $num1 / $num2;
+                                }
+                            ?>
+                        </p>
+                    </div>
                 </div>
-                <div class="col s3" id="op2container">
-                    <input type="text" name="num2" placeholder="Number 2" style="color: white;">
-                </div>
-                <div class="col s2">
-                    <p><font color="white" size="6">=</font></p>
-                </div>
-                <div class="col s4" id="resultcontainer">
-                    <p style="color: white; font-size: 20px">
-                        <?php
-                            if(isset($_GET['add'])){
-                                $num1 = $_GET['num1'];
-                                $num2 = $_GET['num2'];
-                                echo $num1 + $num2;
-                            }
-                            else if(isset($_GET['subtract'])){
-                                $num1 = $_GET['num1'];
-                                $num2 = $_GET['num2'];
-                                echo $num1 - $num2;
-                            }
-                            else if(isset($_GET['multiply'])){
-                                $num1 = $_GET['num1'];
-                                $num2 = $_GET['num2'];
-                                echo $num1 * $num2;
-                            }
-                            else if(isset($_GET['divide'])){
-                                $num1 = $_GET['num1'];
-                                $num2 = $_GET['num2'];
-                                echo $num1 / $num2;
-                            }
-                        ?>
-                    </p>
+                <br> <br>
+                <div class="row">
+                    <div class="col s3" id="addbtncontainer">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s3" id="subtractbtncontainer">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s3" id="multiplybtncontainer">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
+                    <div class="col s3" id="dividebtncontainer">
+                        <!--This child will be built by javascript. The code is at the end-->
+                    </div>
                 </div>
             </div>
-            <br> <br>
-            <div class="row">
-                <div class="col s3">
-                    <button class="waves-effect waves-light btn black" name="add" type="submit" value="add">add</button>
-                </div>
-                <div class="col s3">
-                    <button class="waves-effect waves-light btn black" name="subtract" type="submit" value="subtract">Subtract</button>
-                </div>
-                <div class="col s3">
-                    <button class="waves-effect waves-light btn black" name="multiply" type="submit" value="multiply">Multiply</button>
-                </div>
-                <div class="col s3">
-                    <button class="waves-effect waves-light btn black" name="divide" type="submit" value="divide">Divide</button>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            // operator 1
+            var o1 = document.getElementById("o1container");
+            var o1input = document.createElement("INPUT");
+            o1input.setAttribute("type", "text");
+            o1input.setAttribute("name", "num1");
+            o1input.setAttribute("placeholder", "Number 1");
+            o1input.setAttribute("style", "color: white;");
+            o1.appendChild(o1input);
+
+            //operator 2
+            var o2 = document.getElementById("o2container");
+            var o2input = document.createElement("INPUT");
+            o2input.setAttribute("type", "text");
+            o2input.setAttribute("name", "num2");
+            o2input.setAttribute("placeholder", "Number 2");
+            o2input.setAttribute("style", "color: white;");
+            o2.appendChild(o2input);
+
+            // '=' container
+            var op = document.getElementById("opcontainer");
+            var para = document.createElement("P");
+            var fontTag = document.createElement("FONT");
+            fontTag.innerHTML = "=";
+            fontTag.setAttribute("size", "6");
+            fontTag.setAttribute("color", "white");
+            para.appendChild(fontTag);
+            op.appendChild(para);
+
+            // add button
+            var addbtncontainer = document.getElementById("addbtncontainer");
+            var addbtn = document.createElement("BUTTON");
+            addbtn.setAttribute("class", "waves-effect waves-light btn black");
+            addbtn.setAttribute("name", "add");
+            addbtn.setAttribute("type", "submit");
+            addbtn.setAttribute("value", "add");
+            addbtn.innerHTML = 'ADD';
+            addbtncontainer.appendChild(addbtn);
+
+            // subtract button
+            var subtractbtncontainer = document.getElementById("subtractbtncontainer");
+            var subtractbtn = document.createElement("BUTTON");
+            subtractbtn.setAttribute("class", "waves-effect waves-light btn black");
+            subtractbtn.setAttribute("name", "subtract");
+            subtractbtn.setAttribute("type", "submit");
+            subtractbtn.setAttribute("value", "subtract");
+            subtractbtn.innerHTML = 'SUBTRACT';
+            subtractbtncontainer.appendChild(subtractbtn);
+
+            // multiple button
+            var multiplybtncontainer = document.getElementById("multiplybtncontainer");
+            var multiplybtn = document.createElement("BUTTON");
+            multiplybtn.setAttribute("class", "waves-effect waves-light btn black");
+            multiplybtn.setAttribute("name", "multiply");
+            multiplybtn.setAttribute("type", "submit");
+            multiplybtn.setAttribute("value", "multiply");
+            multiplybtn.innerHTML = 'MULTIPLY';
+            multiplybtncontainer.appendChild(multiplybtn);
+
+            // divide button
+            var dividebtncontainer = document.getElementById("dividebtncontainer");
+            var dividebtn = document.createElement("BUTTON");
+            dividebtn.setAttribute("class", "waves-effect waves-light btn black");
+            dividebtn.setAttribute("name", "divide");
+            dividebtn.setAttribute("type", "submit");
+            dividebtn.setAttribute("value", "divide");
+            dividebtn.innerHTML = 'DIVIDE';
+            dividebtncontainer.appendChild(dividebtn);
+
+        </script>
     </body>
 </html>
